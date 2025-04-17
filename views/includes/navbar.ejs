@@ -1,0 +1,61 @@
+<nav
+  class="navbar navbar-expand-lg navbar-light bg-light border-bottom sticky-top"
+>
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/listings"
+      ><i class="fa-regular fa-compass"></i
+    ></a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavAltMarkup"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse text-bg-light" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link" href="/listings">Explore</a>
+      </div>
+      <div class="navbar-nav ms-auto">
+        <form class="d-flex" role="search">
+          <input
+          id="searchInput"
+            class="form-control me-2"
+            type="search"
+            placeholder="Search destination"
+           
+          />
+          <button class="btn btn-danger" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </form>
+      </div>
+      <div class="navbar-nav ms-auto">
+        <a class="nav-link" href="/listings/new">Add New Listing</a>
+        <% if(!currUser) {%>
+        <a class="nav-link" href="/signup">sign up</a>
+        <a class="nav-link" href="/login">login</a>
+        <% } %> <% if(currUser){ %>
+        <a class="nav-link" href="/logout">logout</a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</nav>
+<script>
+  const searchInput = document.getElementById("searchInput");
+  const listings = document.querySelectorAll(".listing-text");
+
+  searchInput.addEventListener("input", () => {
+    const query = searchInput.value.toLowerCase();
+    listings.forEach(listing => {
+      const title = listing.querySelector(".card-text b").textContent.toLowerCase();
+      if (title.includes(query)) {
+        listing.style.display = "block"; // Show matching listings
+      } else {
+        listing.style.display = "none"; // Hide non-matching listings
+      }
+    });
+  });
+</script>
